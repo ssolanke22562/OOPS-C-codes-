@@ -1,0 +1,91 @@
+/*Design and implement a Hospital Staff Management System using C++ and Object-Oriented Programming 
+concepts to manage different types of staff members such as Doctors, Nurses, and Administrative staff.*/
+
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+class Person {
+protected:
+    string n, g;
+    int a;
+public:
+    virtual void in() {
+        cout << "Name: "; getline(cin, n);
+        cout << "Age: "; cin >> a; cin.ignore();
+        cout << "Gender: "; getline(cin, g);
+    }
+    virtual void show() {
+        cout << "Name: " << n << " | Age: " << a << " | Gender: " << g;
+    }
+    virtual ~Person() {}
+};
+
+class Doctor : public Person {
+    string sp;
+public:
+    void in() override {
+        cout << "\n-- Doctor --\n";
+        Person::in();
+        cout << "Specialization: "; getline(cin, sp);
+    }
+    void show() override {
+        cout << "\nDoctor -> ";
+        Person::show();
+        cout << " | Spec: " << sp;
+    }
+};
+
+class Nurse : public Person {
+    string sh;
+public:
+    void in() override {
+        cout << "\n-- Nurse --\n";
+        Person::in();
+        cout << "Shift: "; getline(cin, sh);
+    }
+    void show() override {
+        cout << "\nNurse -> ";
+        Person::show();
+        cout << " | Shift: " << sh;
+    }
+};
+
+class Admin : public Person {
+    string r;
+public:
+    void in() override {
+        cout << "\n-- Admin --\n";
+        Person::in();
+        cout << "Role: "; getline(cin, r);
+    }
+    void show() override {
+        cout << "\nAdmin -> ";
+        Person::show();
+        cout << " | Role: " << r;
+    }
+};
+
+int main() {
+    vector<Person*> v;
+    int ch;
+    do {
+        cout << "\n\n1.Add Doctor\n2.Add Nurse\n3.Add Admin\n4.Display All\n5.Exit\nChoice: ";
+        cin >> ch; cin.ignore();
+        Person* p = nullptr;
+        if (ch == 1) p = new Doctor();
+        else if (ch == 2) p = new Nurse();
+        else if (ch == 3) p = new Admin();
+        else if (ch == 4) {
+            for (auto x : v) x->show();
+            continue;
+        } else if (ch == 5) break;
+        else { cout << "Invalid!\n"; continue; }
+        p->in();
+        v.push_back(p);
+    } while (ch != 5);
+
+    for (auto x : v) delete x;
+    return 0;
+}
