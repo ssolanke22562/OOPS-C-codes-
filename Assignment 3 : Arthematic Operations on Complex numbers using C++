@@ -1,0 +1,40 @@
+/*Design a C++ Class ‘Complex ‘ with data members for real and imaginary part. 
+Provide default and parameterized constructors. Write a program to perform 
+arithmetic operations of two complex numbers using operator overloading 
+(using either member functions or friend functions).*/
+
+#include<iostream>
+using namespace std;
+
+class complex
+{
+   int real,imag;
+   public:
+   void accept()
+   {
+      cout<<"Enter the real part-"<<endl;
+      cin>>real;
+      cout<<"Enter the Imaginary part-"<<endl;
+      cin>>imag;
+   }
+   void display()
+   {
+      cout << "Complex Number = " << real;
+      if(imag>=0)
+      {
+         cout<<"+"<<imag<<"i"<<endl;
+      }
+      else
+      {
+         cout<<"-"<<imag<<"i"<<endl;
+      }
+   
+   }
+};
+int main()
+{
+   complex c;
+   c.accept();
+   c.display();
+   return 0;
+}
