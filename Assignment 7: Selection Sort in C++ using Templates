@@ -1,0 +1,50 @@
+/* Write a function template selection Sort. Write a program that inputs, sorts and outputs an integer array and a float array.*/
+
+#include <iostream>
+using namespace std;
+template <class T>
+void selectionSort(T arr[], int n) 
+{
+    for (int i = 0; i < n - 1; i++) 
+    {
+        int minIndex = i;
+        for (int j = i + 1; j < n; j++) 
+        {
+            if (arr[j] < arr[minIndex])
+                minIndex = j;
+        }
+        T temp = arr[i];
+        arr[i] = arr[minIndex];
+        arr[minIndex] = temp;
+    }
+}
+template <class T>
+void display(T arr[], int n) 
+{
+    for (int i = 0; i < n; i++)
+        cout << arr[i] << " ";
+    cout << endl;
+}
+int main() 
+{
+    int n1, n2;
+    cout << "Enter number of integers: ";
+    cin >> n1;
+    int intArr[n1];
+    cout << "Enter " << n1 << " integer values:\n";
+    for (int i = 0; i < n1; i++)
+        cin >> intArr[i];
+    selectionSort(intArr, n1);
+    cout << "\nSorted Integer Array:\n";
+    display(intArr, n1);
+    cout << "\nEnter number of float values: ";
+    cin >> n2;
+    float floatArr[n2];
+    cout << "Enter " << n2 << " float values:\n";
+    for (int i = 0; i < n2; i++)
+        cin >> floatArr[i];
+    selectionSort(floatArr, n2);
+    cout << "\nSorted Float Array:\n";
+    display(floatArr, n2);
+    return 0;
+}
