@@ -1,0 +1,105 @@
+/*Define a class to represent a bank account which includes the following members as:
+a. Name of the depositor
+b. Account Number
+c. Withdrawal amount
+d. Balance amount in the account
+Member Functions:
+e. To assign initial values
+f. To deposit an amount
+g. To withdraw an amount after checking the balance
+h. To display name and balance.
+Implement the program by using features of OOP in C++
+*/
+
+
+#include<iostream>
+#include<string>
+using namespace std;
+class BankAccount
+{
+    private:
+    string name;
+    int Account_number;
+    float Bank_balance;
+    public:
+    void assign(string dname , int accnum , float initial_balance)
+    {
+       name=dname;
+       Account_number=accnum;
+       Bank_balance=initial_balance;
+    }
+    void withdraw (float amount)
+    {
+        if (amount>Bank_balance)
+        {
+            cout<<"Insufficient Balance!!! \n";
+        }
+        else 
+        {
+          Bank_balance -= amount;
+            cout<<"Amount Successfully Withdrawn!!! \n";
+        }
+    }
+    void deposit(float amount)
+    {
+        Bank_balance+=amount;
+        cout<<"Amount sucessfully deposited!!! \n";
+    }
+    void display()
+    {
+        cout<<"---ACCOUNT DETAILS---\n";
+        cout<<"Name :-" << name << endl;
+        cout<<"Account Number :" << Account_number << endl;
+        cout<<"Bank_balance :" << Bank_balance << endl;
+    }
+};
+int main()
+{
+    BankAccount Bank;
+    string nm;
+    int accnm;
+    float bb;
+    cout << "Enter Name of Depositor: " << endl;
+    getline(cin, nm);
+    cout<<"Enter Account Number" << endl;
+    cin>>accnm;
+    cout<<"Enter the Initial Balance" << endl;
+    cin>>bb;
+    Bank.assign(nm,accnm,bb);
+    int choice;
+    float amount;
+    do{
+        cout<<"\n----BANK MENU----\n";
+        cout<<"1. DEPOSIT:\n";
+        cout<<"2. WITHDRAW:\n";
+        cout<<"3. DISPLAY:\n";
+        cout<<"4. EXIT:\n";
+        cout<<"Enter Your Choice:" << endl;
+        cin>> choice;
+        switch(choice)
+        {
+            case 1:
+             cout << "Enter amount to deposit: ₹";
+             cin >> amount;
+             Bank.deposit(amount);
+             break;
+             case 2:
+             cout << "Enter amount to withdraw: ₹";
+             cin>> amount;
+             Bank.withdraw(amount);
+             break;
+             case 3:
+             cout<< "Displaying Data !!!";
+             Bank.display();
+             break;
+             case 4:
+             cout<<"Exiting...";
+             break;
+             default :
+             cout << "Invalid choice! Please try again.\n";
+        }
+    } 
+    while (choice != 4);
+    return 0;
+}
+    
