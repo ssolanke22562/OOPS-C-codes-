@@ -1,0 +1,105 @@
+/*An organization has multiple categories of employees: Full-Time, Part-Time, and Interns. 
+Each employee has some common attributes like ID, Name, Salary, Role, but may belong to different categories.
+You are required to write a C++ program to:
+-Maintain records of all employees.
+-Allow input and display of employee details.
+-Use inheritance and virtual functions to handle different types of employees.
+-Use a vector of base class pointers to store all employee objects dynamically*/
+
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+class Employee 
+{
+protected:
+    string id, name, role;
+    float sal;
+public:
+    virtual void in() 
+    {
+        cout << "ID: "; getline(cin, id);
+        cout << "Name: "; getline(cin, name);
+        cout << "Salary: "; cin >> sal; cin.ignore();
+        cout << "Role: "; getline(cin, role);
+    }
+    virtual void show() 
+    {
+        cout << "ID:" << id << " | Name:" << name << " | Salary:" << sal << " | Role:" << role;
+    }
+    virtual ~Employee() {}
+};
+
+class FullTime : public Employee 
+{
+public:
+    void in() override 
+    {
+        cout << "\n-- Full Time Employee --\n";
+        Employee::in();
+    }
+    void show() override 
+    {
+        cout << "\nFullTime -> ";
+        Employee::show();
+    }
+};
+
+class PartTime : public Employee 
+{
+public:
+    void in() override 
+    {
+        cout << "\n-- Part Time Employee --\n";
+        Employee::in();
+    }
+    void show() override 
+    {
+        cout << "\nPartTime -> ";
+        Employee::show();
+    }
+};
+
+class Intern : public Employee 
+{
+public:
+    void in() override 
+    {
+        cout << "\n-- Intern --\n";
+        Employee::in();
+    }
+    void show() override 
+    {
+        cout << "\nIntern -> ";
+        Employee::show();
+    }
+};
+
+int main() 
+{
+    vector<Employee*> e;
+    int ch;
+    do 
+    {
+        cout << "\n\n1.Add FullTime\n2.Add PartTime\n3.Add Intern\n4.Display All\n5.Exit\nChoice: ";
+        cin >> ch; cin.ignore();
+        Employee* p = nullptr;
+        if (ch == 1) p = new FullTime();
+        else if (ch == 2) p = new PartTime();
+        else if (ch == 3) p = new Intern();
+        else if (ch == 4) {
+            for (auto x : e) x->show();
+            continue;
+        } 
+        else if (ch == 5) break;
+        else { cout << "Invalid!\n"; continue; 
+        }
+        p->in();
+        e.push_back(p);
+    } 
+    while (ch != 5);
+
+    for (auto x : e) delete x;
+    return 0;
+}
